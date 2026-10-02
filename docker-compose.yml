@@ -1,0 +1,37 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: to_do_flask
+    ports:
+      - 80:80 # 0 - 1024 reserved. Use any port from 1025 to 65535
+    volumes:
+      - .:/app
+
+  # For the database "maria:10.6.20"
+  mariadb:
+    image: mariadb:10.6.20
+    container_name: to_do_mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: to_do
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  # The ui for the phpadmin? - måske?
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: to_do_phpmyadmin
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 8080:80
+
+volumes:
+  mariadb_data:

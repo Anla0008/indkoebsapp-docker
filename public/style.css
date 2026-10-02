@@ -1,0 +1,110 @@
+/* Basic Style */
+
+body {
+  background-color: #f9f2f9;
+  font-family: "Lato", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: min(400px, calc(100% - 60px));
+  margin: 10px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+h2 {
+  color: #e91e63;
+  margin-bottom: 20px;
+}
+
+#message:not(:empty) { color: #a00030; }
+#quantity { width: 5rem; padding: 8px; margin-right: 8px; }
+li label { display: flex; align-items: center; gap: 5px; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Lato", sans-serif;
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #e91e63;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  font-family: "Lato", sans-serif;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #d81b60;
+}
+
+input[type="checkbox"].toggle_done,
+input[type="checkbox"].delete_item {
+  margin-right: 10px;
+}
+
+li label {
+  flex-grow: 1;
+  margin-left: 10px;
+  text-align: left;
+}
+
+/* Gennemførte Task */
+
+#doneList label {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Rediger Task */
+
+ul li input[type="text"] {
+  display: none;
+}
+
+ul li.editMode input[type="text"] {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+ul li.editMode label {
+  display: none;
+}
+
+/* Animation af delete */
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s, transform 0.5s;
+}

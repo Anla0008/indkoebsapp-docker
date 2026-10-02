@@ -1,0 +1,5 @@
+Flask == 3.1.2
+icecream == 2.1.10
+flask-cors == 6.0.2
+mysql-connector-python == 9.0.0
+Flask-JWT-Extended == 4.7.1
