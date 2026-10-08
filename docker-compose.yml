@@ -24,6 +24,8 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./to_do_med_indhold.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "3306:3306" # 0 - 1024 reserved. Use any port from 1025 to 65535
 
     # Healthcheck for the mariadb container to check if the database is ready to accept connections.
     healthcheck:
@@ -48,15 +50,10 @@ services:
 
 # Here we define the volume for the mariadb container to persist data which is stored in /var/lib/mysql inside the container.
 # This volume will be created automatically by Docker when you run docker-compose up for the first time.
-
-# Tænk på containeren som en computer og volumen som en ekstern harddisk.
-# Når I sletter containeren og starter en ny med samme volume, sker der derfor følgende.
-# Med docker compose down bevares volumen. Med docker compose down -v slettes den også, og dermed jeres gemte database.
 volumes:
   mariadb_data:
 
-# Here we define the network for the containers to communicate with each other.
-# The default network is created automatically by Docker when you run docker-compose up for the first time.
+# Here we define the network for the containers to communicate with each other. The default network is created automatically by Docker when you run docker-compose up for the first time.
 networks:
   default:
     name: to_do_network
