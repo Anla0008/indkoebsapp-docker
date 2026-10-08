@@ -24,8 +24,6 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./to_do_med_indhold.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
-    ports:
-      - "3306:3306"
 
     # Healthcheck for the mariadb container to check if the database is ready to accept connections.
     healthcheck:
