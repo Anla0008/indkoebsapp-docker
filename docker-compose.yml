@@ -5,9 +5,14 @@ services:
       dockerfile: Dockerfile
     container_name: to_do_flask
     ports:
-      - 80:80 # 0 - 1024 reserved. Use any port from 1025 to 65535
+      - "8000:5000" # 0 - 1024 reserved. Use any port from 1025 to 65535
     volumes:
       - .:/app
+
+    # Define the dependency for the web container to wait for the mariadb container to be healthy before starting.
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   # For the database "maria:10.6.20"
   mariadb:
@@ -18,20 +23,42 @@ services:
       MYSQL_DATABASE: to_do
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./to_do_med_indhold.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     ports:
-      - 3306:3306
+      - "3306:3306"
 
-  # The ui for the phpadmin? - måske?
+    # Healthcheck for the mariadb container to check if the database is ready to accept connections.
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # The ui for the phpadmin?
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: to_do_phpmyadmin
     depends_on:
-      - mariadb
+      mariadb:
+        # Define the dependency for the phpmyadmin container to wait for the mariadb container to be healthy before starting.
+        condition: service_healthy
     environment:
       PMA_HOST: mariadb
-      MYSQL_ROOT_PASSWORD: password
     ports:
-      - 8080:80
+      - "8080:80"
 
+# Here we define the volume for the mariadb container to persist data which is stored in /var/lib/mysql inside the container.
+# This volume will be created automatically by Docker when you run docker-compose up for the first time.
+
+# Tænk på containeren som en computer og volumen som en ekstern harddisk.
+# Når I sletter containeren og starter en ny med samme volume, sker der derfor følgende.
+# Med docker compose down bevares volumen. Med docker compose down -v slettes den også, og dermed jeres gemte database.
 volumes:
   mariadb_data:
+
+# Here we define the network for the containers to communicate with each other.
+# The default network is created automatically by Docker when you run docker-compose up for the first time.
+networks:
+  default:
+    name: to_do_network

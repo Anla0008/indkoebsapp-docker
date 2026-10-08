@@ -1,33 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="da">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Indkøbsliste</title>
     <script type="module" src="/js.js"></script>
-    <link rel="stylesheet" href="/style.css">
-</head>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h2>Indkøbsliste</h2>
-        <h3>Tilføj vare</h3>
-        <p>
-            <label for="new-task">Vare</label>
-            <input type="text" id="new-task" maxlength="255">
-            <label for="quantity">Antal</label>
-            <input type="number" id="quantity" min="1" max="9999" value="1">
-            <button id="add-task" type="button">Tilføj</button>
-        </p>
-        <p id="message" role="alert"></p>
+      <h2>Indkøbsliste</h2>
+      <h3>Tilføj vare</h3>
+      <p>
+        <label for="new-task">Vare</label>
+        <input type="text" id="new-task" maxlength="255" />
+        <label for="quantity">Antal</label>
+        <input type="number" id="quantity" min="1" max="9999" value="1" />
+        <button id="add-task" type="button">Tilføj</button>
+      </p>
+      <p id="message" role="alert"></p>
 
-        <h3>Skal købes</h3>
-        <ul id="taskList"></ul>
+      <h3>Skal købes</h3>
+      <ul id="taskList"></ul>
 
-        <h3>Købt</h3>
-        <ul id="doneList"></ul>
+      <h3>Købt</h3>
+      <ul id="doneList"></ul>
     </div>
-</body>
-
+  </body>
 </html>
